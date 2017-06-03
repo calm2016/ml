@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-df = pd.read_csv('http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data', header=None) # 加载Iris数据集作为DataFrame对象
+df = pd.read_csv('../iris.data', header=None) # 加载Iris数据集作为DataFrame对象
 X = df.iloc[:, [0, 2]].values # 取出2个特征，并把它们用Numpy数组表示
 
 plt.scatter(X[:50, 0], X[:50, 1],color='red', marker='o', label='setosa') # 前50个样本的散点图
