@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 # http://blog.csdn.net/han_xiaoyang/article/details/49123419
 # http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial
-
+# http://blog.csdn.net/han_xiaoyang/article/details/49332321
+# https://chenrudan.github.io/blog/2016/01/09/logisticregression.html
 import matplotlib.pyplot as plt
+
 import numpy as np
 
 def sigmoid(h):
