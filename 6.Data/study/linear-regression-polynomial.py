@@ -16,12 +16,11 @@ quadratic_featurizer = PolynomialFeatures(degree=2)
 
 # Use only one feature
 X = np.arange(100).reshape(-1, 1)
-data_Y = 3 + 2 * X + X * X
+data_Y = 3 + 2 * X + X * X + np.random.randint(1, 300, 100).reshape(-1, 1)
 data_X = quadratic_featurizer.fit_transform(X)
-# print X
-# print data_X
-# print data_Y
-plt.plot(X, data_Y)
+print X
+print data_Y
+plt.scatter(X, data_Y, color='blue')
 
 # model = Pipeline([('poly', PolynomialFeatures(degree=2)),
 #                   ('linear', LinearRegression(fit_intercept=False))])
@@ -55,8 +54,10 @@ print('Variance score: %.2f' % regr.score(data_X_test, data_y_test))
 # Plot outputs
 print len(X[-20:])
 print len(regr.predict(data_X_test))
-plt.scatter(X[-20:], data_y_test,  color='black')
+plt.scatter(X[-20:], data_y_test, color='black')
 plt.plot(X[-20:], regr.predict(data_X_test), color='blue', linewidth=3)
+
+print (regr.predict(data_X_test) - data_y_test)/data_y_test
 #
 # # plt.xticks(())
 # # plt.yticks(())

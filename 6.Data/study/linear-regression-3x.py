@@ -14,11 +14,10 @@ quadratic_featurizer = PolynomialFeatures(degree=2)
 
 
 # Use only one feature
-data_X = np.arange(0, 10, 0.1).reshape(-1, 1)
-data_Y = 3*data_X
-# data_X = quadratic_featurizer.fit_transform(data_X)
-# print data_X
-# print data_Y
+data_X = np.arange(100).reshape(-1, 1)
+data_Y = 3*data_X + np.random.randint(1, 20, 100).reshape(-1, 1)
+print data_X
+print data_Y
 
 # Split the data into training/testing sets
 data_X_train = data_X[:-20]
@@ -29,7 +28,7 @@ data_y_train = data_Y[:-20]
 data_y_test = data_Y[-20:]
 print data_y_train, data_y_test
 #
-plt.plot(data_X, data_Y)
+plt.scatter(data_X, data_Y,  color='blue')
 
 # # # Create linear regression object
 regr = linear_model.LinearRegression()
@@ -50,6 +49,7 @@ plt.scatter(data_X_test, data_y_test,  color='black')
 plt.plot(data_X_test, regr.predict(data_X_test), color='blue',
          linewidth=3)
 
+print (regr.predict(data_X_test) - data_y_test)/data_y_test
 # plt.xticks(())
 # plt.yticks(())
 plt.show()
