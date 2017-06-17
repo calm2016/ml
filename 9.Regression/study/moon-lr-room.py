@@ -2,6 +2,9 @@ from sklearn import datasets
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import RidgeCV
+from sklearn.linear_model import LassoCV
+from sklearn.linear_model import ElasticNetCV
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PolynomialFeatures
 
@@ -28,16 +31,26 @@ if __name__ == "__main__":
             ('linear', LinearRegression(fit_intercept=False))]),
         Pipeline([
             ('poly', PolynomialFeatures()),
-            ('linear', LinearRegression(fit_intercept=False))])
+            ('linear', LinearRegression(fit_intercept=False))]),
+        Pipeline([
+            ('poly', PolynomialFeatures()),
+            ('linear', RidgeCV(alphas=np.logspace(-3, 2, 10), fit_intercept=False))]),
+        Pipeline([
+            ('poly', PolynomialFeatures()),
+            ('linear', LassoCV(alphas=np.logspace(-3, 2, 10), fit_intercept=False))]),
+        Pipeline([
+            ('poly', PolynomialFeatures()),
+            ('linear', ElasticNetCV(alphas=np.logspace(-3, 2, 10), l1_ratio=[.1, .5, .7, .9, .95, .99, 1],
+                                    fit_intercept=False))])
     ]
-    colors = ['blue', 'red']
+    colors = ['blue', 'red', 'yellow', 'green', 'black']
 
     for i, m in enumerate(models):
         m.fit(x_train, y_train)
         # print('Coefficients: \n', m.coef_)
         print x_test.shape
         predicts = m.predict(x_test)
-        print("Mean squared error: %.2f" % np.mean((predicts - y_test) ** 2))
+        print("Mean squared error: %s, %.2f" % (colors[i], np.mean((predicts - y_test) ** 2)))
         # Explained variance score: 1 is perfect prediction
         print('Variance score: %.2f' % m.score(x, target))
         plt.plot(x_test, m.predict(x_test), color=colors[i], linewidth=1)
